@@ -1,0 +1,26 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      {% for post in posts %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ post.author }}:</h3>
+        </div>
+        <div class="panel-body">
+          <a href="{{ url('posts.show', {id: post.id}) }}">{{ post.body }}</a>
+        </div>
+        <div class="panel-footer">
+          <span class="badge">Likes: {{ post.numberOfLikes }}</span>
+          <form class="delete" action="{{ url('like.store', {id: post.id}) }}" method="POST">
+            <!-- TODO:  csrf_field-->
+            <button type="submit" class="btn btn-primary btn-xs">Like</button>
+          </form>
+          <h6>{{ post.created_at }}</h6>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
